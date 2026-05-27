@@ -1,1 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eason的中转站 · ChatGPT API 接入</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
 
+  <header>
+    <a class="brand" href="#">
+      <span>E</span>
+      Eason的中转站
+    </a>
+    <nav>
+      <a href="#use">使用</a>
+      <a href="#api">API</a>
+      <a href="#demo">测试</a>
+      <a href="#safe">安全</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="tag">ChatGPT API Gateway</p>
+        <h1>安全接入 ChatGPT API</h1>
+        <p class="desc">
+          前端请求本站接口，后端再安全调用 OpenAI API。API Key 放在服务器环境变量中，不暴露给用户浏览器。
+        </p>
+        <div class="actions">
+          <a href="#demo">在线测试</a>
+          <a class="ghost" href="#api">查看接口</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">请求流程</div>
+        <pre><code>网页前端
+  ↓
+/v1/chat
+  ↓
+Node.js 后端
+  ↓
+OpenAI API
+  ↓
+返回 AI 回复</code></pre>
+      </div>
+    </section>
+
+    <section id="use" class="section">
+      <p class="tag">How to use</p>
+      <h2>部署步骤</h2>
+      <div class="steps">
+        <div><b>1</b><p>安装依赖：<code>npm install</code></p></div>
+        <div><b>2</b><p>复制：<code>.env.example</code> 改名为 <code>.env</code></p></div>
+        <div><b>3</b><p>在 <code>.env</code> 填入新的 <code>OPENAI_API_KEY</code></p></div>
+        <div><b>4</b><p>启动：<code>npm start</code></p></div>
+      </div>
+    </section>
+
+    <section id="api" class="section two">
+      <div>
+        <p class="tag">API Docs</p>
+        <h2>接口</h2>
+        <div class="api-list">
+          <p><span>GET</span> <code>/v1/status</code> 查看服务状态</p>
+          <p><span>POST</span> <code>/v1/chat</code> 简单对话接口</p>
+          <p><span>POST</span> <code>/v1/chat/completions</code> 兼容 Chat Completions</p>
+          <p><span>GET</span> <code>/v1/models</code> 查看模型列表</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">前端调用示例</div>
+        <pre><code>fetch("/v1/chat", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    message: "你好"
+  })
+})
+.then(res => res.json())
+.then(console.log);</code></pre>
+      </div>
+    </section>
+
+    <section id="demo" class="section">
+      <p class="tag">Demo</p>
+      <h2>接口测试</h2>
+      <div class="demo-box">
+        <textarea id="message" placeholder="输入你想问 ChatGPT 的内容">你好，介绍一下你自己</textarea>
+        <button id="sendBtn">发送请求</button>
+        <pre id="result">等待测试...</pre>
+      </div>
+    </section>
+
+    <section id="safe" class="section safe">
+      <p class="tag">Security</p>
+      <h2>安全提醒</h2>
+      <p>
+        不要把真实 API Key 写在 HTML、JS、GitHub 公开仓库里。正式部署时请使用服务器环境变量，
+        并增加访问鉴权、限流和日志记录。
+      </p>
+    </section>
+  </main>
+
+  <footer>© 2026 Eason的中转站</footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
